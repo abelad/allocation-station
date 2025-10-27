@@ -100,13 +100,13 @@ allocation-station/
 ### 📋 Phase 3: Simulation & Forecasting (Priority: Medium)
 
 #### 3.1 Advanced Monte Carlo
-- [ ] Implement regime-switching models
-- [ ] Add GARCH volatility modeling
-- [ ] Create copula-based dependency structures
-- [ ] Implement jump diffusion processes
-- [ ] Add stochastic volatility models
-- [ ] Support for custom distributions
-- [ ] Implement importance sampling
+- [x] Implement regime-switching models
+- [x] Add GARCH volatility modeling
+- [x] Create copula-based dependency structures
+- [x] Implement jump diffusion processes
+- [x] Add stochastic volatility models
+- [x] Support for custom distributions
+- [x] Implement importance sampling
 
 #### 3.2 Scenario Analysis
 - [ ] Create historical scenario replay
