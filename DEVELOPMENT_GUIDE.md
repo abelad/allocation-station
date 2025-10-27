@@ -129,13 +129,13 @@ allocation-station/
 ### 📋 Phase 4: Withdrawal & Income (Priority: Medium)
 
 #### 4.1 Advanced Withdrawal Strategies
-- [ ] Implement dynamic programming for optimal withdrawal
-- [ ] Add Social Security optimization
-- [ ] Create pension integration
-- [ ] Implement annuity strategies
-- [ ] Add required minimum distribution (RMD) calculations
-- [ ] Support for multiple account types (401k, IRA, taxable)
-- [ ] Create income floor strategies
+- [x] Implement dynamic programming for optimal withdrawal
+- [x] Add Social Security optimization
+- [x] Create pension integration
+- [x] Implement annuity strategies
+- [x] Add required minimum distribution (RMD) calculations
+- [x] Support for multiple account types (401k, IRA, taxable)
+- [x] Create income floor strategies
 
 #### 4.2 Longevity Planning
 - [ ] Implement mortality tables and life expectancy
