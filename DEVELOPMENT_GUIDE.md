@@ -109,13 +109,13 @@ allocation-station/
 - [x] Implement importance sampling
 
 #### 3.2 Scenario Analysis
-- [ ] Create historical scenario replay
-- [ ] Implement custom scenario builder
-- [ ] Add economic scenario generators
-- [ ] Create what-if analysis tools
-- [ ] Implement sensitivity analysis
-- [ ] Add parametric scenario testing
-- [ ] Create scenario comparison framework
+- [x] Create historical scenario replay
+- [x] Implement custom scenario builder
+- [x] Add economic scenario generators
+- [x] Create what-if analysis tools
+- [x] Implement sensitivity analysis
+- [x] Add parametric scenario testing
+- [x] Create scenario comparison framework
 
 #### 3.3 Machine Learning Integration
 - [ ] Implement return prediction models
