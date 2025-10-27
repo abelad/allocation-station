@@ -59,14 +59,14 @@ allocation-station/
 - [x] Add support for structured products (principal protection, participation)
 - [x] Create asset class correlation models (dynamic, hierarchical, copula)
 
-#### 1.3 Advanced Portfolio Features
-- [ ] Implement tax-loss harvesting strategies
-- [ ] Add multi-currency portfolio support
-- [ ] Create portfolio transition analysis
-- [ ] Implement factor-based allocation strategies
-- [ ] Add ESG (Environmental, Social, Governance) constraints
-- [ ] Support for leveraged portfolios
-- [ ] Implement portfolio insurance strategies (CPPI)
+#### 1.3 Advanced Portfolio Features ✅
+- [x] Implement tax-loss harvesting strategies (wash sale rules, tax optimization)
+- [x] Add multi-currency portfolio support (FX risk, hedging, VaR)
+- [x] Create portfolio transition analysis (cost optimization, scheduling)
+- [x] Implement factor-based allocation strategies (multi-factor models)
+- [x] Support for leveraged portfolios (margin, futures, risk management)
+- [x] Implement portfolio insurance strategies (CPPI with dynamic allocation)
+- [ ] Add ESG constraints (skipped per user request)
 
 ### 📋 Phase 2: Analysis & Optimization (Priority: High)
 
