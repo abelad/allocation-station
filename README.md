@@ -200,12 +200,36 @@ pytest tests/test_portfolio.py
 
 ## Documentation
 
-Full documentation is available in the `docs/` directory and includes:
+📚 **Comprehensive documentation is now available!**
 
-- API Reference
-- Strategy Guides
-- Mathematical Background
-- Best Practices
+Visit the [**Documentation Hub**](docs/README.md) for complete guides, tutorials, and reference materials.
+
+### Quick Links
+
+- **[User Guide](docs/USER_GUIDE.md)** - Complete guide to all features and capabilities
+- **[Tutorials](docs/TUTORIALS.md)** - Step-by-step walkthroughs for common tasks
+- **[Cookbook](docs/COOKBOOK.md)** - Quick code recipes for 50+ common scenarios
+- **[API Reference](docs/API_REFERENCE.md)** - Detailed API documentation for all modules
+- **[Theory](docs/THEORY.md)** - Mathematical foundations and financial theory
+
+### Documentation Highlights
+
+| Topic | Quick Link |
+|-------|------------|
+| Getting Started | [Installation & Quick Start](docs/USER_GUIDE.md#installation) |
+| Building Portfolios | [Tutorial 1](docs/TUTORIALS.md#tutorial-1-building-your-first-portfolio) |
+| Monte Carlo Simulation | [Tutorial 2](docs/TUTORIALS.md#tutorial-2-running-monte-carlo-simulations) |
+| Portfolio Optimization | [Tutorial 4](docs/TUTORIALS.md#tutorial-4-portfolio-optimization) |
+| Retirement Planning | [Tutorial 5](docs/TUTORIALS.md#tutorial-5-retirement-planning) |
+| Risk Analysis | [Tutorial 6](docs/TUTORIALS.md#tutorial-6-risk-analysis) |
+| Code Recipes | [Cookbook - 50+ Recipes](docs/COOKBOOK.md) |
+
+### For Different Users
+
+- **New Users**: Start with the [User Guide](docs/USER_GUIDE.md) and [Tutorial 1](docs/TUTORIALS.md#tutorial-1-building-your-first-portfolio)
+- **Developers**: See [API Reference](docs/API_REFERENCE.md) and [DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)
+- **Researchers**: Read [Theory](docs/THEORY.md) for mathematical foundations
+- **Quick Reference**: Browse the [Cookbook](docs/COOKBOOK.md) for code snippets
 
 ## Use Cases
 
