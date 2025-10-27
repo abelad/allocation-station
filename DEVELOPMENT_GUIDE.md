@@ -70,14 +70,14 @@ allocation-station/
 
 ### 📋 Phase 2: Analysis & Optimization (Priority: High)
 
-#### 2.1 Risk Analysis
-- [ ] Implement stress testing scenarios
-- [ ] Add tail risk analysis
-- [ ] Create regime detection (bull/bear markets)
-- [ ] Implement correlation breakdown analysis
-- [ ] Add liquidity risk assessment
-- [ ] Create concentration risk metrics
-- [ ] Implement systematic vs idiosyncratic risk decomposition
+#### 2.1 Risk Analysis ✅
+- [x] Implement stress testing scenarios (5 default scenarios, custom support)
+- [x] Add tail risk analysis (VaR, CVaR, extreme value distribution)
+- [x] Create regime detection (bull/bear, volatility, HMM)
+- [x] Implement correlation breakdown analysis (dispersion, breakdown detection)
+- [x] Add liquidity risk assessment (Amihud, days-to-liquidate, liquidity score)
+- [x] Create concentration risk metrics (HHI, effective N, diversification ratio)
+- [x] Implement systematic vs idiosyncratic risk decomposition (single/multi-factor)
 
 #### 2.2 Advanced Optimization
 - [ ] Implement Black-Litterman model
