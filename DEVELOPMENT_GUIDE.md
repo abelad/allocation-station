@@ -80,13 +80,13 @@ allocation-station/
 - [x] Implement systematic vs idiosyncratic risk decomposition (single/multi-factor)
 
 #### 2.2 Advanced Optimization
-- [ ] Implement Black-Litterman model
-- [ ] Add robust optimization techniques
-- [ ] Create hierarchical risk parity (HRP)
-- [ ] Implement mean-CVaR optimization
-- [ ] Add Kelly criterion optimization
-- [ ] Support for custom objective functions
-- [ ] Implement multi-period optimization
+- [x] Implement Black-Litterman model
+- [x] Add robust optimization techniques
+- [x] Create hierarchical risk parity (HRP)
+- [x] Implement mean-CVaR optimization
+- [x] Add Kelly criterion optimization
+- [x] Support for custom objective functions
+- [x] Implement multi-period optimization
 
 #### 2.3 Performance Attribution
 - [ ] Implement Brinson attribution analysis
