@@ -138,13 +138,13 @@ allocation-station/
 - [x] Create income floor strategies
 
 #### 4.2 Longevity Planning
-- [ ] Implement mortality tables and life expectancy
-- [ ] Add longevity risk modeling
-- [ ] Create couple/joint strategies
-- [ ] Implement healthcare cost projections
-- [ ] Add long-term care planning
-- [ ] Create legacy planning tools
-- [ ] Implement charitable giving strategies
+- [x] Implement mortality tables and life expectancy
+- [x] Add longevity risk modeling
+- [x] Create couple/joint strategies
+- [x] Implement healthcare cost projections
+- [x] Add long-term care planning
+- [x] Create legacy planning tools
+- [x] Implement charitable giving strategies
 
 ### 📋 Phase 5: User Interface & Reporting (Priority: Medium)
 
