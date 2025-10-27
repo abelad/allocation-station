@@ -6,6 +6,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 
+@pytest.mark.integration
 class TestPortfolioWorkflow:
     """Integration tests for complete portfolio workflows."""
 
@@ -81,6 +82,7 @@ class TestPortfolioWorkflow:
         assert sharpe_ratios[max_sharpe_idx] > 0
 
 
+@pytest.mark.integration
 class TestBrokerIntegration:
     """Integration tests for broker connections."""
 
@@ -118,6 +120,7 @@ class TestBrokerIntegration:
         assert order_id.startswith('ORD')
 
 
+@pytest.mark.integration
 class TestDataPipeline:
     """Integration tests for data pipeline."""
 

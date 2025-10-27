@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 
 
+@pytest.mark.regression
 class TestRegressionBugs:
     """Tests for previously discovered bugs."""
 
@@ -72,6 +73,7 @@ class TestRegressionBugs:
                 assert False, f"Failed to parse: {date_str}"
 
 
+@pytest.mark.regression
 class TestRegressionPerformance:
     """Regression tests for performance issues."""
 
@@ -119,6 +121,7 @@ class TestRegressionPerformance:
         assert growth < 1000  # Reasonable threshold
 
 
+@pytest.mark.regression
 class TestRegressionDataIntegrity:
     """Regression tests for data integrity issues."""
 
@@ -153,6 +156,7 @@ class TestRegressionDataIntegrity:
         assert utc_time.hour == 12
 
 
+@pytest.mark.regression
 class TestRegressionValidation:
     """Regression tests for input validation."""
 

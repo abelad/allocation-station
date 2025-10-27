@@ -5,6 +5,7 @@ from hypothesis import given, strategies as st, assume
 import numpy as np
 
 
+@pytest.mark.property
 class TestPropertyBasedPortfolio:
     """Property-based tests for portfolio operations."""
 
@@ -104,6 +105,7 @@ class TestPropertyBasedPortfolio:
         assert -1 <= correlation <= 1
 
 
+@pytest.mark.property
 class TestPropertyBasedRiskMetrics:
     """Property-based tests for risk metrics."""
 

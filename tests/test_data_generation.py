@@ -1,5 +1,6 @@
 """Automated test data generation utilities."""
 
+import pytest
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
@@ -127,6 +128,7 @@ class TestDataGenerator:
 
 
 # Test the generators
+@pytest.mark.unit
 class TestDataGenerators:
     """Tests for data generation utilities."""
 

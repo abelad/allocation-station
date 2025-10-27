@@ -7,6 +7,7 @@ import time
 from datetime import datetime
 
 
+@pytest.mark.performance
 class TestPerformanceBenchmarks:
     """Performance benchmarks for critical operations."""
 
@@ -61,6 +62,7 @@ class TestPerformanceBenchmarks:
         assert elapsed < 2.0  # Should complete quickly
 
 
+@pytest.mark.stress
 class TestStressTests:
     """Stress tests for large portfolios and datasets."""
 
@@ -122,6 +124,8 @@ class TestStressTests:
         assert all(r > 0 for r in results)
 
 
+@pytest.mark.stress
+@pytest.mark.slow
 class TestScalability:
     """Test scalability with increasing data sizes."""
 

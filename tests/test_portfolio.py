@@ -6,6 +6,7 @@ import pandas as pd
 from datetime import datetime
 
 
+@pytest.mark.unit
 class TestPortfolio:
     """Comprehensive unit tests for Portfolio class."""
 
@@ -81,6 +82,7 @@ class TestPortfolio:
         assert isinstance(sharpe, (int, float))
 
 
+@pytest.mark.unit
 class TestPortfolioEdgeCases:
     """Test edge cases and boundary conditions."""
 
@@ -107,6 +109,7 @@ class TestPortfolioEdgeCases:
         assert holdings['TLT'] == 50.25
 
 
+@pytest.mark.unit
 class TestPortfolioPerformance:
     """Test portfolio performance calculations."""
 
