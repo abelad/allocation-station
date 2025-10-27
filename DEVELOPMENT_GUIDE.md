@@ -50,14 +50,14 @@ allocation-station/
 - [x] Add support for custom data sources via plugins
 - [ ] Implement IEX Cloud data source (deferred - requires paid API)
 
-#### 1.2 Enhanced Asset Classes
-- [ ] Add support for options and derivatives
-- [ ] Implement real estate (REITs) specific features
-- [ ] Add cryptocurrency integration with volatility adjustments
-- [ ] Support for commodities and futures
-- [ ] Implement private equity/alternative investments
-- [ ] Add support for structured products
-- [ ] Create asset class correlation models
+#### 1.2 Enhanced Asset Classes ✅
+- [x] Add support for options and derivatives (calls, puts, Greeks)
+- [x] Implement real estate (REITs) specific features (FFO, AFFO, occupancy)
+- [x] Add cryptocurrency integration with volatility adjustments (risk scoring)
+- [x] Support for commodities and futures (carry costs, contango/backwardation)
+- [x] Implement private equity/alternative investments (IRR, MOIC, fee structures)
+- [x] Add support for structured products (principal protection, participation)
+- [x] Create asset class correlation models (dynamic, hierarchical, copula)
 
 #### 1.3 Advanced Portfolio Features
 - [ ] Implement tax-loss harvesting strategies
