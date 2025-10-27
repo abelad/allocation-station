@@ -40,14 +40,15 @@ allocation-station/
 
 ### 📋 Phase 1: Core Enhancements (Priority: High)
 
-#### 1.1 Data Infrastructure
-- [ ] Implement additional data sources (Alpha Vantage, Quandl, IEX)
-- [ ] Add support for alternative data (economic indicators, sentiment)
-- [ ] Implement data validation and cleaning pipelines
-- [ ] Add support for intraday data
-- [ ] Create data export functionality (CSV, Excel, Parquet)
-- [ ] Implement automated data updates and scheduling
-- [ ] Add support for custom data sources via plugins
+#### 1.1 Data Infrastructure ✅
+- [x] Implement additional data sources (Alpha Vantage, Quandl/NASDAQ Data Link, FRED)
+- [x] Add support for alternative data (economic indicators via FRED)
+- [x] Implement data validation and cleaning pipelines
+- [x] Add support for intraday data
+- [x] Create data export functionality (CSV, Excel, Parquet, JSON, HDF5, Feather)
+- [x] Implement automated data updates and scheduling
+- [x] Add support for custom data sources via plugins
+- [ ] Implement IEX Cloud data source (deferred - requires paid API)
 
 #### 1.2 Enhanced Asset Classes
 - [ ] Add support for options and derivatives
@@ -177,7 +178,11 @@ allocation-station/
 ### 📋 Phase 6: Integration & APIs (Priority: Low)
 
 #### 6.1 External Integrations
-- [ ] Create broker API connections (Interactive Brokers, TD Ameritrade)
+- [ ] Create broker API connections (Interactive Brokers via ib_insync, TD Ameritrade)
+- [ ] Implement Interactive Brokers (IBKR) data and trading integration
+  - Real-time and historical market data
+  - Order execution and portfolio management
+  - Options chains and derivatives data
 - [ ] Implement portfolio import from brokers
 - [ ] Add Excel plugin/add-in
 - [ ] Create REST API for the framework

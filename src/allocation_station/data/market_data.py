@@ -11,6 +11,34 @@ import json
 import os
 from pathlib import Path
 
+# Import new modules
+try:
+    from .sources import (
+        AlphaVantageSource, NasdaqDataLinkSource, FREDSource,
+        YahooFinanceSource, DataSourceInterface
+    )
+    ENHANCED_SOURCES_AVAILABLE = True
+except ImportError:
+    ENHANCED_SOURCES_AVAILABLE = False
+
+try:
+    from .validation import DataValidator, DataCleaner
+    VALIDATION_AVAILABLE = True
+except ImportError:
+    VALIDATION_AVAILABLE = False
+
+try:
+    from .export import DataExporter, DataImporter
+    EXPORT_AVAILABLE = True
+except ImportError:
+    EXPORT_AVAILABLE = False
+
+try:
+    from .plugins import PluginManager
+    PLUGINS_AVAILABLE = True
+except ImportError:
+    PLUGINS_AVAILABLE = False
+
 
 class DataSource(str, Enum):
     """Available data sources."""
