@@ -178,17 +178,17 @@ allocation-station/
 ### 📋 Phase 6: Integration & APIs (Priority: Low)
 
 #### 6.1 External Integrations
-- [ ] Create broker API connections (Interactive Brokers via ib_insync, TD Ameritrade)
-- [ ] Implement Interactive Brokers (IBKR) data and trading integration
+- [x] Create broker API connections (Interactive Brokers via ib_insync, TD Ameritrade)
+- [x] Implement Interactive Brokers (IBKR) data and trading integration
   - Real-time and historical market data
   - Order execution and portfolio management
   - Options chains and derivatives data
-- [ ] Implement portfolio import from brokers
-- [ ] Add Excel plugin/add-in
-- [ ] Create REST API for the framework
-- [ ] Implement webhook notifications
-- [ ] Add cloud storage integration (AWS S3, Google Cloud)
-- [ ] Create database connectors (PostgreSQL, MongoDB)
+- [x] Implement portfolio import from brokers
+- [x] Add Excel plugin/add-in
+- [x] Create REST API for the framework
+- [x] Implement webhook notifications
+- [x] Add cloud storage integration (AWS S3, Google Cloud)
+- [x] Create database connectors (PostgreSQL, MongoDB)
 
 #### 6.2 Export & Compatibility
 - [ ] Implement FIX protocol support
