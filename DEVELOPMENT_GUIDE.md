@@ -167,13 +167,13 @@ allocation-station/
 - [x] Add multi-language support
 
 #### 5.3 Visualization Enhancements
-- [ ] Create 3D efficient frontier visualization
-- [ ] Implement interactive correlation heatmaps
-- [ ] Add animated historical replays
-- [ ] Create risk factor decomposition charts
-- [ ] Implement portfolio evolution timelines
-- [ ] Add geographic allocation maps
-- [ ] Create custom chart builders
+- [x] Create 3D efficient frontier visualization
+- [x] Implement interactive correlation heatmaps
+- [x] Add animated historical replays
+- [x] Create risk factor decomposition charts
+- [x] Implement portfolio evolution timelines
+- [x] Add geographic allocation maps
+- [x] Create custom chart builders
 
 ### 📋 Phase 6: Integration & APIs (Priority: Low)
 
