@@ -14,7 +14,7 @@ from allocation_station.portfolio import StrategicAllocation, WithdrawalStrategy
 from allocation_station.simulation import MonteCarloSimulator, SimulationConfig
 from allocation_station.backtesting import BacktestEngine, BacktestConfig
 from allocation_station.data import MarketDataProvider
-from allocation_station.analysis import EfficientFrontier
+from allocation_station.analysis import EfficientFrontier, OptimizationObjective
 from allocation_station.visualization import (
     plot_portfolio_performance,
     plot_efficient_frontier,
@@ -199,7 +199,7 @@ def analyze_efficient_frontier():
     print("\nCalculating optimal portfolios...")
 
     # Maximum Sharpe Ratio
-    max_sharpe = ef.optimize("max_sharpe")
+    max_sharpe = ef.optimize(OptimizationObjective.MAX_SHARPE)
     print("\n1. Maximum Sharpe Ratio Portfolio:")
     print("-" * 40)
     for asset, weight in max_sharpe.weights.items():
@@ -210,7 +210,7 @@ def analyze_efficient_frontier():
     print(f"   Sharpe Ratio: {max_sharpe.sharpe_ratio:.2f}")
 
     # Minimum Variance
-    min_var = ef.optimize("min_variance")
+    min_var = ef.optimize(OptimizationObjective.MIN_VARIANCE)
     print("\n2. Minimum Variance Portfolio:")
     print("-" * 40)
     for asset, weight in min_var.weights.items():
@@ -221,7 +221,7 @@ def analyze_efficient_frontier():
     print(f"   Sharpe Ratio: {min_var.sharpe_ratio:.2f}")
 
     # Risk Parity
-    risk_parity = ef.optimize("risk_parity")
+    risk_parity = ef.optimize(OptimizationObjective.RISK_PARITY)
     print("\n3. Risk Parity Portfolio:")
     print("-" * 40)
     for asset, weight in risk_parity.weights.items():
