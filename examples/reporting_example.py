@@ -242,11 +242,11 @@ def example_2_executive_summary():
     print(f"[OK] Executive summary generated: {output_path}")
     print(f"\n  Key Highlights:")
     for highlight in insights['highlights'][:3]:
-        print(f"    • {highlight}")
+        print(f"    - {highlight}")
 
     print(f"\n  Top Recommendations:")
     for rec in insights['recommendations'][:3]:
-        print(f"    • {rec}")
+        print(f"    - {rec}")
 
 
 def example_3_compliance_report():
@@ -346,10 +346,10 @@ def example_4_multilanguage_reports():
     # Generate reports in different languages
     languages = [
         (Language.ENGLISH, "portfolio_summary_en.pdf", "English"),
-        (Language.SPANISH, "portfolio_summary_es.pdf", "Español"),
-        (Language.FRENCH, "portfolio_summary_fr.pdf", "Français"),
-        (Language.GERMAN, "portfolio_summary_de.pdf", "Deutsch"),
-        (Language.CHINESE, "portfolio_summary_zh.pdf", "中文")
+        (Language.SPANISH, "portfolio_summary_es.pdf", "Spanish"),
+        (Language.FRENCH, "portfolio_summary_fr.pdf", "French"),
+        (Language.GERMAN, "portfolio_summary_de.pdf", "German"),
+        (Language.CHINESE, "portfolio_summary_zh.pdf", "Chinese")
     ]
 
     print("Generating reports in multiple languages:\n")
@@ -373,9 +373,16 @@ def example_4_multilanguage_reports():
         portfolio_summary = translator.translate('portfolio_summary', language)
         total_value = translator.translate('total_value', language)
 
-        print(f"  [OK] {display_name} report: {filename}")
-        print(f"    Title: {portfolio_summary}")
-        print(f"    {total_value}: ${portfolio.total_value:,.2f}\n")
+        # Use ASCII-safe output for Windows console
+        try:
+            print(f"  [OK] {display_name} report: {filename}")
+            print(f"    Title: {portfolio_summary}")
+            print(f"    {total_value}: ${portfolio.total_value:,.2f}\n")
+        except UnicodeEncodeError:
+            # Fallback to ASCII representation for languages with non-ASCII chars
+            print(f"  [OK] {display_name} report: {filename}")
+            print(f"    Title: {portfolio_summary.encode('ascii', 'replace').decode('ascii')}")
+            print(f"    {total_value.encode('ascii', 'replace').decode('ascii')}: ${portfolio.total_value:,.2f}\n")
 
 
 def example_5_email_delivery():
@@ -424,13 +431,13 @@ def example_5_email_delivery():
     print(f"  Attachment: {report_path}")
 
     print("\nHTML Email Body Includes:")
-    print(f"  • Portfolio name and report date")
-    print(f"  • Total value: ${portfolio.total_value:,.2f}")
-    print(f"  • YTD return: {portfolio.performance['ytd_return']:.2f}%")
-    print(f"  • Sharpe ratio: {portfolio.risk_metrics['sharpe_ratio']:.2f}")
-    print(f"  • Company branding and disclaimer")
+    print(f"  -Portfolio name and report date")
+    print(f"  -Total value: ${portfolio.total_value:,.2f}")
+    print(f"  -YTD return: {portfolio.performance['ytd_return']:.2f}%")
+    print(f"  -Sharpe ratio: {portfolio.risk_metrics['sharpe_ratio']:.2f}")
+    print(f"  -Company branding and disclaimer")
 
-    print("\n⚠ Note: Actual email sending requires valid SMTP credentials")
+    print("\n[WARNING] Note: Actual email sending requires valid SMTP credentials")
     print("  For demonstration, email delivery is simulated")
 
     # Uncomment to actually send (requires valid SMTP credentials)
@@ -479,26 +486,26 @@ def example_6_powerpoint_presentation():
     print(f"[OK] PowerPoint presentation generated: {output_path}")
     print(f"\nPresentation Contents:")
     print(f"  Slide 1: Title Slide")
-    print(f"    • {portfolio.portfolio_name}")
-    print(f"    • {config.report_date.strftime('%B %Y')}")
+    print(f"    -{portfolio.portfolio_name}")
+    print(f"    -{config.report_date.strftime('%B %Y')}")
 
     print(f"\n  Slide 2: Executive Summary")
-    print(f"    • Total Value: ${portfolio.total_value:,.2f}")
-    print(f"    • YTD Return: {portfolio.performance['ytd_return']:.2f}%")
-    print(f"    • Sharpe Ratio: {portfolio.risk_metrics['sharpe_ratio']:.2f}")
+    print(f"    -Total Value: ${portfolio.total_value:,.2f}")
+    print(f"    -YTD Return: {portfolio.performance['ytd_return']:.2f}%")
+    print(f"    -Sharpe Ratio: {portfolio.risk_metrics['sharpe_ratio']:.2f}")
 
     print(f"\n  Slide 3: Performance Chart")
-    print(f"    • Historical returns visualization")
-    print(f"    • Benchmark comparison")
+    print(f"    -Historical returns visualization")
+    print(f"    -Benchmark comparison")
 
     print(f"\n  Slide 4: Asset Allocation")
-    print(f"    • Pie chart of current allocation")
+    print(f"    -Pie chart of current allocation")
     for asset, weight in portfolio.allocation.items():
         print(f"      - {asset}: {weight:.1f}%")
 
     print(f"\n  Slide 5: Holdings Table")
-    print(f"    • Detailed position breakdown")
-    print(f"    • {len(portfolio.holdings)} holdings displayed")
+    print(f"    -Detailed position breakdown")
+    print(f"    -{len(portfolio.holdings)} holdings displayed")
 
 
 def example_7_custom_templates():
@@ -599,10 +606,10 @@ def example_7_custom_templates():
     print(f"    Goal Tracking: Enabled")
 
     print("\nCustom Template Features:")
-    print("  • Tailored content for client segment")
-    print("  • Appropriate level of detail")
-    print("  • Relevant metrics and analysis")
-    print("  • Custom branding and formatting")
+    print("  -Tailored content for client segment")
+    print("  -Appropriate level of detail")
+    print("  -Relevant metrics and analysis")
+    print("  -Custom branding and formatting")
 
 
 def demo_all_report_types():
@@ -657,17 +664,17 @@ def main():
         print("\n" + "=" * 80)
         print(" All examples completed successfully!")
         print(" Generated reports:")
-        print("   • portfolio_summary.pdf")
-        print("   • executive_summary.pdf")
-        print("   • compliance_report.pdf")
-        print("   • portfolio_summary_en.pdf (+ 4 other languages)")
-        print("   • client_presentation.pptx")
-        print("   • Custom template reports (3 types)")
-        print("   • Comprehensive report suite (5 types)")
+        print("   -portfolio_summary.pdf")
+        print("   -executive_summary.pdf")
+        print("   -compliance_report.pdf")
+        print("   -portfolio_summary_en.pdf (+ 4 other languages)")
+        print("   -client_presentation.pptx")
+        print("   -Custom template reports (3 types)")
+        print("   -Comprehensive report suite (5 types)")
         print("=" * 80 + "\n")
 
     except Exception as e:
-        print(f"\n❌ Error running examples: {e}")
+        print(f"\n[ERROR] Error running examples: {e}")
         import traceback
         traceback.print_exc()
 

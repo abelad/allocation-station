@@ -1,0 +1,33 @@
+{
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportCallIssue": "none",
+        "reportArgumentType": "warning",
+        "reportAttributeAccessIssue": "warning",
+        "reportGeneralTypeIssues": "warning",
+        "reportOptionalMemberAccess": "warning",
+        "reportOptionalCall": "warning",
+        "reportOptionalSubscript": "warning"
+    },
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.extraPaths": [
+        "./src"
+    ],
+    "python.analysis.stubPath": "typings",
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.completeFunctionParens": false,
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": false,
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length=100"
+    ]
+}

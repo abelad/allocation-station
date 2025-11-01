@@ -1,0 +1,38 @@
+[
+  {
+    "job_id":"daily_portfolio_update",
+    "name":"Daily Portfolio Update",
+    "frequency":"daily",
+    "symbols":[
+      "AAPL",
+      "MSFT",
+      "GOOGL",
+      "AMZN",
+      "TSLA"
+    ],
+    "data_source":"yahoo",
+    "enabled":true,
+    "last_run":null,
+    "next_run":null,
+    "success_count":0,
+    "error_count":0,
+    "last_error":null
+  },
+  {
+    "job_id":"market_refresh_20251101_121639",
+    "name":"Market Data Refresh",
+    "frequency":"market_close",
+    "symbols":[
+      "SPY",
+      "QQQ",
+      "IWM"
+    ],
+    "data_source":"yahoo",
+    "enabled":true,
+    "last_run":null,
+    "next_run":null,
+    "success_count":0,
+    "error_count":0,
+    "last_error":null
+  }
+]

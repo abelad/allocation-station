@@ -35,6 +35,8 @@ dependencies = [
     "fastparquet>=2023.4.0",  # Alternative Parquet engine
     "apscheduler>=3.10.0",  # Scheduling for automated updates
     "fredapi>=0.5.1",  # Federal Reserve Economic Data
+    "reportlab>=4.0.0",  # PDF report generation
+    "python-pptx>=1.0.0",  # PowerPoint presentation generation
 ]
 
 [project.optional-dependencies]
