@@ -39,13 +39,13 @@ def example_1_options():
 
     # Create a call option
     call_option = OptionAsset(
-        symbol="AAPL250117C00150000",
-        name="AAPL Jan 2025 150 Call",
+        symbol="AAPL260117C00150000",
+        name="AAPL Jan 2026 150 Call",
         option_type=OptionType.CALL,
         option_style=OptionStyle.AMERICAN,
         underlying_symbol="AAPL",
         strike_price=150.0,
-        expiration_date=date(2025, 1, 17),
+        expiration_date=date(2026, 1, 17),
         contract_size=100,
         delta=0.65,
         gamma=0.05,
@@ -83,12 +83,12 @@ def example_1_options():
     # Create a put option
     put_option = OptionAsset(
         symbol="AAPL250117P00150000",
-        name="AAPL Jan 2025 150 Put",
+        name="AAPL Jan 2026 150 Put",
         option_type=OptionType.PUT,
         option_style=OptionStyle.AMERICAN,
         underlying_symbol="AAPL",
         strike_price=150.0,
-        expiration_date=date(2025, 1, 17),
+        expiration_date=date(2026, 1, 17),
         delta=-0.35,
         implied_volatility=0.32
     )
@@ -510,6 +510,6 @@ if __name__ == "__main__":
         print("="*70)
 
     except Exception as e:
-        print(f"\n✗ Error running examples: {e}")
+        print(f"\nError running examples: {e}")
         import traceback
         traceback.print_exc()

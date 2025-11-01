@@ -3,7 +3,7 @@
 from .strategy import AllocationStrategy, StrategicAllocation, TacticalAllocation
 from .rebalancing import RebalancingStrategy, RebalanceFrequency
 from .constraints import PortfolioConstraints
-from .withdrawal import WithdrawalStrategy, WithdrawalRule
+from .withdrawal import WithdrawalStrategy, WithdrawalRule, WithdrawalMethod
 
 __all__ = [
     "AllocationStrategy",
@@ -14,4 +14,5 @@ __all__ = [
     "PortfolioConstraints",
     "WithdrawalStrategy",
     "WithdrawalRule",
+    "WithdrawalMethod",
 ]

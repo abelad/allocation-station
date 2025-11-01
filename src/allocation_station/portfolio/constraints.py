@@ -1,6 +1,6 @@
 """Portfolio constraints and optimization boundaries."""
 
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Tuple
 from pydantic import BaseModel, Field, validator
 from ..core import AssetClass
 

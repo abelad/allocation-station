@@ -176,7 +176,9 @@ class DataScheduler:
         # Get next run time
         scheduled_job = self.scheduler.get_job(job_id)
         if scheduled_job:
-            job.next_run = scheduled_job.next_run_time
+            # APScheduler v3 uses 'next_run' instead of 'next_run_time'
+            job.next_run = getattr(scheduled_job, 'next_run',
+                                 getattr(scheduled_job, 'next_run_time', None))
 
         self.logger.info(f"Added update job: {name} (ID: {job_id})")
 

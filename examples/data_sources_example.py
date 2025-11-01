@@ -160,9 +160,24 @@ def example_3_data_export():
 
     # Export with metadata
     print("\n5. Exporting with metadata...")
+
+    # Get date column name - check for 'Date' or use index if it's a DatetimeIndex
+    date_col = None
+    if 'Date' in data.columns:
+        date_col = 'Date'
+    elif 'date' in data.columns:
+        date_col = 'date'
+    elif isinstance(data.index, pd.DatetimeIndex):
+        date_range = f"{data.index.min()} to {data.index.max()}"
+    else:
+        date_range = "Unknown"
+
+    if date_col:
+        date_range = f"{data[date_col].min()} to {data[date_col].max()}"
+
     metadata = {
         "symbols": ["AAPL", "MSFT"],
-        "date_range": f"{data['date'].min()} to {data['date'].max()}",
+        "date_range": date_range,
         "export_date": str(datetime.now()),
         "source": "Yahoo Finance"
     }
@@ -194,8 +209,8 @@ def example_4_scheduled_updates():
     print("="*60)
 
     # Create data provider
-    from allocation_station.data import MarketDataConfig
-    config = MarketDataConfig(cache_dir="data/cache")
+    from allocation_station.data.market_data import MarketDataProvider, MarketDataConfig, DataSource
+    config = MarketDataConfig(data_source=DataSource.YAHOO, cache_dir="data/cache")
     data_provider = MarketDataProvider(config)
 
     # Create scheduler
@@ -352,7 +367,7 @@ def example_6_comprehensive_workflow():
 
     # Step 5: Setup automated updates
     print("\n5. Setting up automated updates...")
-    from allocation_station.data import MarketDataConfig
+    from allocation_station.data.market_data import MarketDataProvider, MarketDataConfig
     config = MarketDataConfig(cache_dir="data/cache")
     data_provider = MarketDataProvider(config)
 
@@ -366,7 +381,7 @@ def example_6_comprehensive_workflow():
     print(f"   Created scheduled job: {job.name}")
     print(f"   Next run: {job.next_run}")
 
-    print("\n✓ Workflow complete!")
+    print("\nWorkflow complete!")
 
 
 if __name__ == "__main__":
@@ -390,7 +405,7 @@ if __name__ == "__main__":
         print("="*70)
 
     except Exception as e:
-        print(f"\n✗ Error running examples: {e}")
+        print(f"\nError running examples: {e}")
         import traceback
         traceback.print_exc()
 

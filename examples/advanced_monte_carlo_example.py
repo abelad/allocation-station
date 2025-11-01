@@ -166,10 +166,10 @@ def example_2_garch_volatility():
     params = garch.fit(returns_series)
 
     print(f"\nEstimated Parameters:")
-    print(f"  omega (ω): {params['omega']:.6f}  (true: {true_omega:.6f})")
-    print(f"  alpha (α): {params['alpha']:.4f}  (true: {true_alpha:.4f})")
-    print(f"  beta (β):  {params['beta']:.4f}  (true: {true_beta:.4f})")
-    print(f"  α + β:     {params['alpha'] + params['beta']:.4f}  (persistence)")
+    print(f"  omega: {params['omega']:.6f}  (true: {true_omega:.6f})")
+    print(f"  alpha: {params['alpha']:.4f}  (true: {true_alpha:.4f})")
+    print(f"  beta:  {params['beta']:.4f}  (true: {true_beta:.4f})")
+    print(f"  alpha + beta: {params['alpha'] + params['beta']:.4f}  (persistence)")
 
     # Unconditional variance
     uncond_var = params['omega'] / (1 - params['alpha'] - params['beta'])
@@ -200,10 +200,10 @@ def example_2_garch_volatility():
     gjr_params = gjr_garch.fit(returns_series)
 
     print(f"\nGJR-GARCH Parameters:")
-    print(f"  omega (ω):  {gjr_params['omega']:.6f}")
-    print(f"  alpha (α):  {gjr_params['alpha']:.4f}")
-    print(f"  gamma (γ):  {gjr_params['gamma']:.4f}  (leverage effect)")
-    print(f"  beta (β):   {gjr_params['beta']:.4f}")
+    print(f"  omega:  {gjr_params['omega']:.6f}")
+    print(f"  alpha:  {gjr_params['alpha']:.4f}")
+    print(f"  gamma:  {gjr_params['gamma']:.4f}  (leverage effect)")
+    print(f"  beta:   {gjr_params['beta']:.4f}")
 
     if gjr_params['gamma'] > 0:
         print(f"\n  Negative returns increase volatility by additional {gjr_params['gamma']:.4f}")
@@ -322,11 +322,11 @@ def example_4_jump_diffusion():
     )
 
     print(f"\nModel Parameters:")
-    print(f"  Continuous drift (μ):     {jd_model.drift:.2%}")
-    print(f"  Continuous volatility(σ): {jd_model.volatility:.2%}")
-    print(f"  Jump intensity (λ):       {jd_model.jump_intensity:.1f} jumps/year")
-    print(f"  Jump mean:                {jd_model.jump_mean:.2%}")
-    print(f"  Jump std:                 {jd_model.jump_std:.2%}")
+    print(f"  Continuous drift (mu):       {jd_model.drift:.2%}")
+    print(f"  Continuous volatility (sigma): {jd_model.volatility:.2%}")
+    print(f"  Jump intensity (lambda):     {jd_model.jump_intensity:.1f} jumps/year")
+    print(f"  Jump mean:                   {jd_model.jump_mean:.2%}")
+    print(f"  Jump std:                    {jd_model.jump_std:.2%}")
 
     # Simulate
     print(f"\n--- Simulating {n_steps} daily steps, 1000 paths ---")
@@ -382,9 +382,9 @@ def example_5_stochastic_volatility():
     print("=" * 80)
 
     print("Heston Model:")
-    print("  dS_t/S_t = r dt + √v_t dW^S_t")
-    print("  dv_t = κ(θ - v_t) dt + σ_v √v_t dW^v_t")
-    print("  where Corr(dW^S, dW^v) = ρ")
+    print("  dS_t/S_t = r dt + sqrt(v_t) dW^S_t")
+    print("  dv_t = kappa(theta - v_t) dt + sigma_v sqrt(v_t) dW^v_t")
+    print("  where Corr(dW^S, dW^v) = rho")
 
     sv_model = StochasticVolatilityModel(
         model_type='heston',
@@ -396,10 +396,10 @@ def example_5_stochastic_volatility():
     )
 
     print(f"\nModel Parameters:")
-    print(f"  Mean reversion (κ):       {sv_model.kappa}")
-    print(f"  Long-term variance (θ):   {sv_model.theta:.4f} ({np.sqrt(sv_model.theta):.2%} vol)")
-    print(f"  Vol of vol (σ_v):         {sv_model.sigma_v}")
-    print(f"  Correlation (ρ):          {sv_model.rho}")
+    print(f"  Mean reversion (kappa):   {sv_model.kappa}")
+    print(f"  Long-term variance (theta): {sv_model.theta:.4f} ({np.sqrt(sv_model.theta):.2%} vol)")
+    print(f"  Vol of vol (sigma_v):     {sv_model.sigma_v}")
+    print(f"  Correlation (rho):        {sv_model.rho}")
     print(f"  Initial variance (v_0):   {sv_model.v0:.4f} ({np.sqrt(sv_model.v0):.2%} vol)")
 
     # Simulate
@@ -446,13 +446,13 @@ def example_5_stochastic_volatility():
     print(f"  >>> Volatility mean-reverts toward {np.sqrt(sv_model.theta):.2%}")
 
     # Leverage effect
-    print(f"\nLeverage Effect (ρ = {sv_model.rho}):")
+    print(f"\nLeverage Effect (rho = {sv_model.rho}):")
     # Calculate correlation between returns and volatility changes
     returns_data = prices[:, 1:] / prices[:, :-1] - 1
     vol_changes = volatilities[:, 1:] - volatilities[:, :-1]
 
     empirical_corr = np.corrcoef(returns_data.flatten(), vol_changes.flatten())[0, 1]
-    print(f"  Empirical correlation(returns, Δvol): {empirical_corr:.3f}")
+    print(f"  Empirical correlation(returns, delta_vol): {empirical_corr:.3f}")
     print(f"  >>> Negative correlation = falling prices increase volatility")
 
 

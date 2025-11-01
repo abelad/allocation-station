@@ -178,7 +178,7 @@ def example_1_basic_pdf_report():
     output_path = "portfolio_summary.pdf"
     reporting.generate_report(portfolio, output_path)
 
-    print(f"✓ Basic PDF report generated: {output_path}")
+    print(f"[OK] Basic PDF report generated: {output_path}")
     print(f"  Report Type: Portfolio Summary")
     print(f"  Format: PDF")
     print(f"  Language: English")
@@ -239,7 +239,7 @@ def example_2_executive_summary():
     output_path = "executive_summary.pdf"
     reporting.generate_report(portfolio, output_path, insights=insights)
 
-    print(f"✓ Executive summary generated: {output_path}")
+    print(f"[OK] Executive summary generated: {output_path}")
     print(f"\n  Key Highlights:")
     for highlight in insights['highlights'][:3]:
         print(f"    • {highlight}")
@@ -319,11 +319,11 @@ def example_3_compliance_report():
     output_path = "compliance_report.pdf"
     reporting.generate_report(portfolio, output_path, compliance_data=compliance_data)
 
-    print(f"✓ Compliance report generated: {output_path}")
+    print(f"[OK] Compliance report generated: {output_path}")
     print(f"\n  Regulatory Checks Passed:")
     for check_name, check_result in compliance_data['checks'].items():
         if check_result['passed']:
-            print(f"    ✓ {check_name}")
+            print(f"    [OK] {check_name}")
 
     print(f"\n  Certifications:")
     print(f"    Portfolio Manager: {compliance_data['certifications']['portfolio_manager']}")
@@ -373,7 +373,7 @@ def example_4_multilanguage_reports():
         portfolio_summary = translator.translate('portfolio_summary', language)
         total_value = translator.translate('total_value', language)
 
-        print(f"  ✓ {display_name} report: {filename}")
+        print(f"  [OK] {display_name} report: {filename}")
         print(f"    Title: {portfolio_summary}")
         print(f"    {total_value}: ${portfolio.total_value:,.2f}\n")
 
@@ -442,9 +442,9 @@ def example_5_email_delivery():
     #         cc_addresses=['advisor@example.com']
     #     )
     #     if success:
-    #         print("\n✓ Email sent successfully!")
+    #         print("\n[OK] Email sent successfully!")
     # except Exception as e:
-    #     print(f"\n✗ Email sending failed: {e}")
+    #     print(f"\n[ERROR] Email sending failed: {e}")
 
 
 def example_6_powerpoint_presentation():
@@ -476,7 +476,7 @@ def example_6_powerpoint_presentation():
     output_path = "client_presentation.pptx"
     reporting.generate_report(portfolio, output_path)
 
-    print(f"✓ PowerPoint presentation generated: {output_path}")
+    print(f"[OK] PowerPoint presentation generated: {output_path}")
     print(f"\nPresentation Contents:")
     print(f"  Slide 1: Title Slide")
     print(f"    • {portfolio.portfolio_name}")
@@ -536,7 +536,7 @@ def example_7_custom_templates():
     output1 = "hnw_quarterly_report.pdf"
     reporting1.generate_report(portfolio, output1)
 
-    print(f"  ✓ Generated: {output1}")
+    print(f"  [OK] Generated: {output1}")
     print(f"    Client Tier: {config1.custom_fields['client_tier']}")
     print(f"    Tax Lot Detail: Included")
     print(f"    Estate Planning: Included")
@@ -564,7 +564,7 @@ def example_7_custom_templates():
     output2 = "institutional_performance_report.pdf"
     reporting2.generate_report(portfolio, output2)
 
-    print(f"  ✓ Generated: {output2}")
+    print(f"  [OK] Generated: {output2}")
     print(f"    Client Type: {config2.custom_fields['client_type']}")
     print(f"    Benchmark: {config2.custom_fields['benchmark']}")
     print(f"    Performance Attribution: Included")
@@ -592,7 +592,7 @@ def example_7_custom_templates():
     output3 = "retail_portfolio_summary.pdf"
     reporting3.generate_report(portfolio, output3)
 
-    print(f"  ✓ Generated: {output3}")
+    print(f"  [OK] Generated: {output3}")
     print(f"    Client Type: {config3.custom_fields['client_type']}")
     print(f"    Simplified Metrics: Yes")
     print(f"    Educational Content: Included")
@@ -631,7 +631,7 @@ def demo_all_report_types():
         reporting = ReportingSystem(config)
         reporting.generate_report(portfolio, filename)
 
-        print(f"  ✓ {report_type.value.replace('_', ' ').title()}")
+        print(f"  [OK] {report_type.value.replace('_', ' ').title()}")
         print(f"    File: {filename}")
         print(f"    Size: ~{np.random.randint(200, 500)} KB")
         print(f"    Pages: {np.random.randint(5, 15)}\n")

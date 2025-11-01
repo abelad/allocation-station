@@ -24,22 +24,27 @@ from pathlib import Path
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-from datetime import datetime, timedelta
-import time
-import json
-from typing import Dict, List
+try:
+    import streamlit as st
+    import pandas as pd
+    import numpy as np
+    from datetime import datetime, timedelta
+    import time
+    import json
+    from typing import Dict, List
 
-# Import dashboard components
-from allocation_station.ui.dashboard import (
-    DashboardUI,
-    AuthenticationManager,
-    RealTimeMonitor,
-    StrategyBuilder,
-    PortfolioComparison
-)
+    # Import dashboard components
+    from allocation_station.ui.dashboard import (
+        DashboardUI,
+        AuthenticationManager,
+        RealTimeMonitor,
+        StrategyBuilder,
+        PortfolioComparison
+    )
+    STREAMLIT_AVAILABLE = True
+except ImportError as e:
+    STREAMLIT_AVAILABLE = False
+    IMPORT_ERROR = str(e)
 
 
 def create_sample_data():
@@ -677,4 +682,16 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if not STREAMLIT_AVAILABLE:
+        print("\n" + "=" * 80)
+        print(" Dashboard Example - Missing Dependencies")
+        print("=" * 80)
+        print(f"\nError: {IMPORT_ERROR}")
+        print("\nThis example requires Streamlit and related dependencies.")
+        print("\nTo install:")
+        print("  pip install streamlit plotly")
+        print("\nTo run the dashboard:")
+        print("  streamlit run examples/dashboard_example.py")
+        print("\n" + "=" * 80)
+    else:
+        main()

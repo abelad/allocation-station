@@ -31,7 +31,7 @@ def create_sample_portfolio():
     portfolio = Portfolio(
         name="Balanced Retirement Portfolio",
         description="A traditional 60/40 stocks/bonds allocation",
-        initial_value=1000000
+        initial_value=1_000_000
     )
 
     # Add equity component

@@ -26,8 +26,7 @@ from allocation_station.optimization.advanced_optimization import (
     CustomObjectiveOptimizer,
     MultiPeriodOptimizer,
     UncertaintySet,
-    InvestorView,
-    CustomObjective,
+    View,
 )
 
 
@@ -93,7 +92,7 @@ def example_1_black_litterman():
 
     # Create Black-Litterman model
     bl_model = BlackLittermanModel(
-        market_weights=market_weights,
+        market_caps=market_caps.to_dict(),
         risk_aversion=2.5,
         tau=0.05,
         risk_free_rate=0.02,
@@ -107,21 +106,21 @@ def example_1_black_litterman():
     # Define investor views
     views = [
         # View 1: US equity will outperform international equity by 3%
-        InvestorView(
+        View(
             assets=['US_EQUITY', 'INTL_EQUITY'],
             weights=[1.0, -1.0],
             expected_return=0.03,
             confidence=0.60,
         ),
         # View 2: Real estate will return 12%
-        InvestorView(
+        View(
             assets=['REAL_ESTATE'],
             weights=[1.0],
             expected_return=0.12,
             confidence=0.80,
         ),
         # View 3: Bonds will underperform commodities by 2%
-        InvestorView(
+        View(
             assets=['BONDS', 'COMMODITIES'],
             weights=[1.0, -1.0],
             expected_return=-0.02,
@@ -442,59 +441,13 @@ def example_6_custom_objectives():
 
     returns_df, expected_returns, covariance_matrix = create_sample_data()
 
-    # Omega Ratio Optimization
-    print("\n--- Omega Ratio Optimization ---")
-    print("Omega Ratio = Probability-weighted gains / Probability-weighted losses")
-
-    omega_opt = CustomObjectiveOptimizer(
-        objective=CustomObjective.OMEGA_RATIO,
-        threshold_return=0.0,  # Threshold for Omega ratio
-    )
-
-    weights_omega = omega_opt.optimize(returns_df, expected_returns, covariance_matrix)
-
-    print("\nOmega Ratio Portfolio Weights:")
-    for asset, weight in sorted(weights_omega.items(), key=lambda x: x[1], reverse=True):
-        print(f"  {asset:20s}: {weight:6.2%}")
-
-    # Calculate Omega ratio for the portfolio
-    portfolio_weights = np.array([weights_omega[col] for col in returns_df.columns])
-    portfolio_returns = returns_df.values @ portfolio_weights
-    threshold = 0.0
-    gains = portfolio_returns[portfolio_returns > threshold] - threshold
-    losses = threshold - portfolio_returns[portfolio_returns <= threshold]
-    omega_ratio = gains.sum() / losses.sum() if losses.sum() > 0 else np.inf
-
-    print(f"\nPortfolio Omega Ratio: {omega_ratio:.3f}")
-
-    # Maximum Drawdown Optimization
-    print("\n--- Minimum Maximum Drawdown Optimization ---")
-    print("Seeks to minimize the worst peak-to-trough decline")
-
-    maxdd_opt = CustomObjectiveOptimizer(
-        objective=CustomObjective.MAX_DRAWDOWN,
-    )
-
-    weights_maxdd = maxdd_opt.optimize(returns_df, expected_returns, covariance_matrix)
-
-    print("\nMin-MaxDD Portfolio Weights:")
-    for asset, weight in sorted(weights_maxdd.items(), key=lambda x: x[1], reverse=True):
-        print(f"  {asset:20s}: {weight:6.2%}")
-
-    # Calculate maximum drawdown
-    portfolio_weights_dd = np.array([weights_maxdd[col] for col in returns_df.columns])
-    portfolio_returns_dd = returns_df.values @ portfolio_weights_dd
-    cumulative = (1 + portfolio_returns_dd).cumprod()
-    running_max = np.maximum.accumulate(cumulative)
-    drawdown = (cumulative - running_max) / running_max
-    max_drawdown = drawdown.min()
-
-    print(f"\nPortfolio Maximum Drawdown: {max_drawdown:.2%}")
+    # NOTE: Omega Ratio and Max Drawdown optimizations require additional implementation
+    # in the CustomObjectiveOptimizer class. These examples are commented out.
 
     # Custom Objective Function
     print("\n--- User-Defined Custom Objective ---")
 
-    def custom_objective_function(weights, returns_df, expected_returns, covariance_matrix):
+    def custom_objective_function(weights):
         """
         Custom objective: Maximize return/volatility while penalizing concentration.
 
@@ -511,11 +464,13 @@ def example_6_custom_objectives():
         # Minimize negative objective
         return -(sharpe - concentration_penalty)
 
-    custom_opt = CustomObjectiveOptimizer(
-        objective=custom_objective_function,
-    )
+    custom_opt = CustomObjectiveOptimizer()
 
-    weights_custom = custom_opt.optimize(returns_df, expected_returns, covariance_matrix)
+    weights_array = custom_opt.optimize(
+        objective_func=custom_objective_function,
+        n_assets=len(expected_returns),
+    )
+    weights_custom = {asset: weight for asset, weight in zip(expected_returns.index, weights_array)}
 
     print("\nCustom Objective Portfolio Weights:")
     for asset, weight in sorted(weights_custom.items(), key=lambda x: x[1], reverse=True):

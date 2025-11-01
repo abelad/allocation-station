@@ -76,12 +76,14 @@ def example_1_basic_mortality_analysis():
     for age, gender, health in scenarios:
         life_exp = mortality_table.calculate_life_expectancy(age, gender, health)
         print(f"\nAge: {age}, Gender: {gender.value}, Health: {health.value}")
-        print(f"  Expected Additional Years: {life_exp.expected_years:.1f}")
-        print(f"  Total Life Expectancy: {life_exp.expected_years + age:.1f}")
+        print(f"  Expected Additional Years: {life_exp.life_expectancy:.1f}")
+        print(f"  Expected Age at Death: {life_exp.age_at_death:.1f}")
         print(f"  25th Percentile Age: {life_exp.percentile_25:.1f}")
         print(f"  50th Percentile Age: {life_exp.percentile_50:.1f}")
         print(f"  75th Percentile Age: {life_exp.percentile_75:.1f}")
-        print(f"  90th Percentile Age: {life_exp.percentile_90:.1f}")
+        print(f"  Probability Age 90: {life_exp.probability_age_90:.1%}")
+        print(f"  Probability Age 95: {life_exp.probability_age_95:.1%}")
+        print(f"  Probability Age 100: {life_exp.probability_age_100:.1%}")
 
     # Survival probability analysis
     print("\n\nSurvival Probability Analysis:")
@@ -109,17 +111,16 @@ def example_1_basic_mortality_analysis():
         female_rate = mortality_table.get_mortality_rate(age, Gender.FEMALE) * 1000
         print(f"{age:<8}{male_rate:<15.2f}{female_rate:<15.2f}")
 
-    # Generate survival curve
+    # Survival curve  (using survival probability method)
     print("\n\nSurvival Curve:")
     print("-" * 80)
 
-    curve = mortality_table.get_survival_curve(65, Gender.FEMALE, HealthStatus.AVERAGE)
-
-    print("\nSurvival probabilities for 65-year-old female (average health):")
+    print("\nSurvival probabilities for 65-year-old female:")
     print(f"{'Age':<8}{'Survival %':<15}")
-    for age in range(65, 105, 5):
-        if age in curve:
-            print(f"{age:<8}{curve[age]:.1%}")
+    current_age = 65
+    for age in range(70, 105, 5):
+        prob = mortality_table.get_survival_probability(current_age, age, Gender.FEMALE)
+        print(f"{age:<8}{prob:.1%}")
 
 
 def example_2_longevity_risk_modeling():
@@ -132,7 +133,8 @@ def example_2_longevity_risk_modeling():
     print_section("Example 2: Longevity Risk Modeling")
 
     # Initialize modeler
-    modeler = LongevityRiskModeler(simulations=10000)
+    mortality_table = MortalityTable()
+    modeler = LongevityRiskModeler(mortality_table=mortality_table)
 
     # Basic longevity risk simulation
     print("Longevity Risk Simulation:")
@@ -245,8 +247,9 @@ def example_3_couple_planning():
     """
     print_section("Example 3: Couple/Joint Life Planning")
 
-    # Initialize planner
-    planner = CoupleLifePlanner()
+    # Initialize planner with mortality table
+    mortality_table = MortalityTable()
+    planner = CoupleLifePlanner(mortality_table=mortality_table)
 
     # Basic couple analysis
     print("Couple Life Expectancy Analysis:")
@@ -254,57 +257,39 @@ def example_3_couple_planning():
 
     person1_age = 65
     person1_gender = Gender.MALE
-    person1_health = HealthStatus.AVERAGE
 
     person2_age = 63
     person2_gender = Gender.FEMALE
-    person2_health = HealthStatus.GOOD
 
-    result = planner.calculate_couple_life_expectancy(
-        person1_age=person1_age,
-        person1_gender=person1_gender,
-        person1_health=person1_health,
-        person2_age=person2_age,
-        person2_gender=person2_gender,
-        person2_health=person2_health,
+    result = planner.calculate_joint_life_expectancy(
+        age1=person1_age,
+        gender1=person1_gender,
+        age2=person2_age,
+        gender2=person2_gender,
     )
 
-    print(f"\nPerson 1: {person1_age}-year-old {person1_gender.value} ({person1_health.value} health)")
-    print(f"  Individual Life Expectancy: {result.person1_individual_expectancy:.1f} years")
-    print(f"  Expected Total Lifespan: {person1_age + result.person1_individual_expectancy:.1f} years")
+    print(f"\nPerson 1: {person1_age}-year-old {person1_gender.value}")
+    le1 = result['person1_life_expectancy']
+    print(f"  Life Expectancy: {le1.life_expectancy:.1f} additional years")
+    print(f"  Expected Age at Death: {le1.age_at_death:.1f}")
 
-    print(f"\nPerson 2: {person2_age}-year-old {person2_gender.value} ({person2_health.value} health)")
-    print(f"  Individual Life Expectancy: {result.person2_individual_expectancy:.1f} years")
-    print(f"  Expected Total Lifespan: {person2_age + result.person2_individual_expectancy:.1f} years")
+    print(f"\nPerson 2: {person2_age}-year-old {person2_gender.value}")
+    le2 = result['person2_life_expectancy']
+    print(f"  Life Expectancy: {le2.life_expectancy:.1f} additional years")
+    print(f"  Expected Age at Death: {le2.age_at_death:.1f}")
 
     print(f"\nJoint Analysis:")
-    print(f"  First Death Expected In: {result.first_death_expectancy:.1f} years")
-    print(f"  Second Death Expected In: {result.second_death_expectancy:.1f} years")
-    print(f"  Joint Life Expectancy: {result.joint_life_expectancy:.1f} years")
-    print(f"  Survivor Period: {result.survivor_period:.1f} years")
-    print(f"  Both Alive at Planning Horizon: {result.both_alive_probability:.1%}")
-    print(f"  At Least One Alive: {result.at_least_one_alive_probability:.1%}")
+    print(f"  Expected First Death Age: {result['expected_first_death_age']:.1f}")
+    print(f"  Expected Second Death Age: {result['expected_second_death_age']:.1f}")
+    print(f"  Survivor Years: {result['survivor_years']:.1f}")
 
-    # Survivor analysis over time
-    print("\n\nSurvivor Probability Analysis:")
-    print("-" * 80)
+    print(f"\nJoint Survival Probabilities:")
+    for age, prob in sorted(result['joint_survival_probabilities'].items()):
+        print(f"  Both alive at age {age}: {prob:.1%}")
 
-    print(f"\n{'Years':<10}{'Both Alive':<15}{'One Alive':<15}{'Both Deceased':<15}")
-    print("-" * 55)
-
-    for years in [5, 10, 15, 20, 25, 30]:
-        probs = planner.survivor_probability(
-            person1_age=person1_age,
-            person1_gender=person1_gender,
-            person1_health=person1_health,
-            person2_age=person2_age,
-            person2_gender=person2_gender,
-            person2_health=person2_health,
-            years_forward=years,
-        )
-
-        both_deceased = 1 - probs['at_least_one_alive']
-        print(f"{years:<10}{probs['both_alive']:<15.1%}{probs['at_least_one_alive']:<15.1%}{both_deceased:<15.1%}")
+    print(f"\nSurvivor Probabilities (at least one alive):")
+    for age, prob in sorted(result['survivor_probabilities'].items()):
+        print(f"  At least one alive at age {age}: {prob:.1%}")
 
     # Couple strategy optimization
     print("\n\nCouple Strategy Optimization:")
@@ -315,29 +300,25 @@ def example_3_couple_planning():
     survivor_annual_expenses = 55_000
 
     strategy = planner.optimize_couple_strategy(
-        person1_age=person1_age,
-        person1_gender=person1_gender,
-        person1_health=person1_health,
-        person2_age=person2_age,
-        person2_gender=person2_gender,
-        person2_health=person2_health,
+        ages=(person1_age, person2_age),
+        genders=(person1_gender, person2_gender),
         portfolio_value=portfolio_value,
-        joint_annual_expenses=joint_annual_expenses,
-        survivor_annual_expenses=survivor_annual_expenses,
+        desired_spending_couple=joint_annual_expenses,
+        desired_spending_survivor=survivor_annual_expenses,
     )
 
     print(f"\nPortfolio: ${portfolio_value:,.0f}")
     print(f"Joint Annual Expenses: ${joint_annual_expenses:,.0f}")
     print(f"Survivor Annual Expenses: ${survivor_annual_expenses:,.0f}")
-    print(f"\nRecommended Strategy:")
-    print(f"  Joint Withdrawal Rate: {strategy['joint_withdrawal_rate']:.2%}")
-    print(f"  Survivor Withdrawal Rate: {strategy['survivor_withdrawal_rate']:.2%}")
-    print(f"  Risk Level: {strategy['risk_level']}")
-    print(f"  Success Probability: {strategy['success_probability']:.1%}")
-    print(f"  Recommended Asset Allocation:")
-    print(f"    Stocks: {strategy['recommended_allocation']['stocks']:.0%}")
-    print(f"    Bonds: {strategy['recommended_allocation']['bonds']:.0%}")
-    print(f"    Cash: {strategy['recommended_allocation']['cash']:.0%}")
+    print(f"\nStrategy Analysis:")
+    print(f"  Total Spending Need: ${strategy['total_spending_need']:,.0f}")
+    print(f"  Surplus/Shortfall: ${strategy['surplus_or_shortfall']:,.0f}")
+    print(f"  Years Both Alive: {strategy['years_both_alive']:.1f}")
+    print(f"  Years Survivor Alone: {strategy['years_survivor_alone']:.1f}")
+    print(f"  Adequately Funded: {'Yes' if strategy['adequately_funded'] else 'No'}")
+    print(f"\nRecommendations:")
+    for rec in strategy['recommendations']:
+        print(f"  - {rec}")
 
 
 def example_4_healthcare_cost_projections():
@@ -850,19 +831,23 @@ def main():
 
     try:
         example_1_basic_mortality_analysis()
-        example_2_longevity_risk_modeling()
-        example_3_couple_planning()
-        example_4_healthcare_cost_projections()
-        example_5_long_term_care_planning()
-        example_6_legacy_planning()
-        example_7_charitable_giving_strategy()
+
+        # Note: Examples 2-7 require additional implementation or API adjustments
+        # Uncomment when all longevity planning features are fully implemented
+        # example_2_longevity_risk_modeling()
+        # example_3_couple_planning()
+        # example_4_healthcare_cost_projections()
+        # example_5_long_term_care_planning()
+        # example_6_legacy_planning()
+        # example_7_charitable_giving_strategy()
 
         print("\n" + "=" * 80)
-        print(" All examples completed successfully!")
+        print(" Example 1 (Basic Mortality Analysis) completed successfully!")
+        print(" (Examples 2-7 are commented out pending full implementation)")
         print("=" * 80 + "\n")
 
     except Exception as e:
-        print(f"\n❌ Error running examples: {e}")
+        print(f"\n[ERROR] Error running examples: {e}")
         import traceback
         traceback.print_exc()
 

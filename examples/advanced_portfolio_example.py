@@ -386,9 +386,9 @@ def example_5_leveraged_portfolio():
         LeveragedPosition(
             asset_symbol='ES',  # S&P 500 Futures
             position_value=50000,
-            leverage_ratio=10.0,
+            leverage_ratio=2.0,
             leverage_type=LeverageType.FUTURES,
-            margin_requirement=5000
+            margin_requirement=25000
         )
     ]
 
@@ -518,6 +518,6 @@ if __name__ == "__main__":
         print("="*70)
 
     except Exception as e:
-        print(f"\n✗ Error running examples: {e}")
+        print(f"\nError running examples: {e}")
         import traceback
         traceback.print_exc()

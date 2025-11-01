@@ -132,10 +132,17 @@ class DataExporter:
             # Multiple sheets
             with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
                 for name, df in data.items():
-                    df.to_excel(writer, sheet_name=name, index=index, **kwargs)
+                    # Remove timezone from datetime columns
+                    df_copy = df.copy()
+                    for col in df_copy.select_dtypes(include=['datetime64[ns, US/Eastern]', 'datetimetz']).columns:
+                        df_copy[col] = df_copy[col].dt.tz_localize(None)
+                    df_copy.to_excel(writer, sheet_name=name, index=index, **kwargs)
         else:
-            # Single sheet
-            data.to_excel(filepath, sheet_name=sheet_name, index=index, **kwargs)
+            # Single sheet - remove timezone from datetime columns
+            data_copy = data.copy()
+            for col in data_copy.select_dtypes(include=['datetime64[ns, US/Eastern]', 'datetimetz']).columns:
+                data_copy[col] = data_copy[col].dt.tz_localize(None)
+            data_copy.to_excel(filepath, sheet_name=sheet_name, index=index, **kwargs)
 
         return str(filepath)
 

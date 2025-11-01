@@ -232,8 +232,8 @@ def example_3_economic_scenarios():
         print(f"  Macro Indicators:")
         print(f"    GDP Growth:        {scenario['macro_indicators']['gdp_growth']:7.2%}")
         print(f"    Inflation:         {scenario['macro_indicators']['inflation']:7.2%}")
-        print(f"    Unemployment Δ:    {scenario['macro_indicators']['unemployment_change']:+7.2%}")
-        print(f"    Interest Rate Δ:   {scenario['macro_indicators']['interest_rate_change']:+7.2%}")
+        print(f"    Unemployment Delta:    {scenario['macro_indicators']['unemployment_change']:+7.2%}")
+        print(f"    Interest Rate Delta:   {scenario['macro_indicators']['interest_rate_change']:+7.2%}")
 
         # Apply to portfolio
         impact = econ_gen.apply_to_portfolio(portfolio_weights, scenario_type, severity)

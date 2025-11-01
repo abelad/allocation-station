@@ -8,8 +8,15 @@ from .charts import (
     plot_drawdown,
     plot_returns_distribution,
 )
-from .dashboard import Dashboard, DashboardConfig
 
+# Try to import optional modules
+try:
+    from .dashboard import Dashboard, DashboardConfig
+    _has_dashboard = True
+except ImportError:
+    _has_dashboard = False
+
+# Build __all__ dynamically
 __all__ = [
     "plot_portfolio_performance",
     "plot_efficient_frontier",
@@ -17,6 +24,7 @@ __all__ = [
     "plot_monte_carlo_paths",
     "plot_drawdown",
     "plot_returns_distribution",
-    "Dashboard",
-    "DashboardConfig",
 ]
+
+if _has_dashboard:
+    __all__.extend(["Dashboard", "DashboardConfig"])

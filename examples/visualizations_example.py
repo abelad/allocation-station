@@ -98,7 +98,7 @@ def example_1_3d_efficient_frontier():
         name="Maximum Sharpe"
     )
 
-    print("✓ Created 3D Efficient Frontier")
+    print("[OK] Created 3D Efficient Frontier")
     print(f"  Portfolios plotted: {n_portfolios}")
     print(f"  Return range: {returns.min():.2f}% - {returns.max():.2f}%")
     print(f"  Volatility range: {volatilities.min():.2f}% - {volatilities.max():.2f}%")
@@ -110,7 +110,7 @@ def example_1_3d_efficient_frontier():
 
     # Save to HTML
     fig.write_html("3d_efficient_frontier.html")
-    print(f"\n✓ Saved to: 3d_efficient_frontier.html")
+    print(f"\n[OK] Saved to: 3d_efficient_frontier.html")
 
 
 def example_2_correlation_heatmap():
@@ -159,7 +159,7 @@ def example_2_correlation_heatmap():
 
     fig = heatmap_viz.create_clustered_heatmap(corr_df, config)
 
-    print("✓ Created Clustered Correlation Heatmap")
+    print("[OK] Created Clustered Correlation Heatmap")
     print(f"  Assets: {len(assets)}")
     print(f"  Correlation range: {correlation_matrix.min():.2f} to {correlation_matrix.max():.2f}")
 
@@ -177,12 +177,12 @@ def example_2_correlation_heatmap():
 
     # Save to HTML
     fig.write_html("correlation_heatmap_clustered.html")
-    print(f"\n✓ Saved to: correlation_heatmap_clustered.html")
+    print(f"\n[OK] Saved to: correlation_heatmap_clustered.html")
 
     # Also create simple interactive heatmap
     fig2 = heatmap_viz.create_interactive_heatmap(corr_df)
     fig2.write_html("correlation_heatmap_simple.html")
-    print(f"✓ Saved to: correlation_heatmap_simple.html")
+    print(f"[OK] Saved to: correlation_heatmap_simple.html")
 
 
 def example_3_animated_replay():
@@ -226,7 +226,7 @@ def example_3_animated_replay():
         config=config
     )
 
-    print("✓ Created Animated Historical Replay")
+    print("[OK] Created Animated Historical Replay")
     print(f"  Date range: {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}")
     print(f"  Data points: {len(dates)}")
     print(f"  Starting value: ${portfolio_values[0]:,.2f}")
@@ -234,7 +234,7 @@ def example_3_animated_replay():
     print(f"  Total return: {(portfolio_values[-1] / portfolio_values[0] - 1) * 100:.2f}%")
 
     fig.write_html("animated_portfolio_replay.html")
-    print(f"\n✓ Saved to: animated_portfolio_replay.html")
+    print(f"\n[OK] Saved to: animated_portfolio_replay.html")
     print("  Open in browser to see animation with play/pause controls")
 
     # Create comparative replay (portfolio vs benchmark)
@@ -251,13 +251,13 @@ def example_3_animated_replay():
         benchmark_data=benchmark_df
     )
 
-    print("\n✓ Created Portfolio vs Benchmark Animated Replay")
+    print("\n[OK] Created Portfolio vs Benchmark Animated Replay")
     print(f"  Portfolio final value: ${portfolio_values[-1]:,.2f}")
     print(f"  Benchmark final value: ${benchmark_values[-1]:,.2f}")
     print(f"  Outperformance: ${portfolio_values[-1] - benchmark_values[-1]:,.2f}")
 
     fig2.write_html("animated_comparison_replay.html")
-    print(f"✓ Saved to: animated_comparison_replay.html")
+    print(f"[OK] Saved to: animated_comparison_replay.html")
 
 
 def example_4_risk_decomposition():
@@ -293,7 +293,7 @@ def example_4_risk_decomposition():
     fig = risk_viz.create_factor_contribution_chart(factors, config)
 
     total_risk = sum(factors.values())
-    print("✓ Created Risk Factor Contribution Waterfall Chart")
+    print("[OK] Created Risk Factor Contribution Waterfall Chart")
     print(f"  Total Risk: {total_risk:.2f}%")
     print(f"\n  Top Risk Factors:")
 
@@ -302,7 +302,7 @@ def example_4_risk_decomposition():
         print(f"    {factor}: {contribution:+.2f}%")
 
     fig.write_html("risk_factor_waterfall.html")
-    print(f"\n✓ Saved to: risk_factor_waterfall.html")
+    print(f"\n[OK] Saved to: risk_factor_waterfall.html")
 
     # Create hierarchical risk decomposition tree
     factor_hierarchy = {
@@ -329,9 +329,9 @@ def example_4_risk_decomposition():
         ChartConfig(title="Hierarchical Risk Factor Decomposition")
     )
 
-    print("\n✓ Created Hierarchical Risk Decomposition Treemap")
+    print("\n[OK] Created Hierarchical Risk Decomposition Treemap")
     fig2.write_html("risk_factor_treemap.html")
-    print(f"✓ Saved to: risk_factor_treemap.html")
+    print(f"[OK] Saved to: risk_factor_treemap.html")
 
 
 def example_5_evolution_timeline():
@@ -396,7 +396,7 @@ def example_5_evolution_timeline():
         config=config
     )
 
-    print("✓ Created Portfolio Evolution Timeline")
+    print("[OK] Created Portfolio Evolution Timeline")
     print(f"  Date range: 2020-2024")
     print(f"  Events marked: {len(events)}")
     print(f"\n  Key Events:")
@@ -404,7 +404,7 @@ def example_5_evolution_timeline():
         print(f"    • {event['date']}: {event['label']}")
 
     fig.write_html("portfolio_evolution_timeline.html")
-    print(f"\n✓ Saved to: portfolio_evolution_timeline.html")
+    print(f"\n[OK] Saved to: portfolio_evolution_timeline.html")
 
     # Create multi-portfolio comparison timeline
     portfolios = {
@@ -427,11 +427,11 @@ def example_5_evolution_timeline():
         config=ChartConfig(title="Multi-Portfolio Evolution Comparison")
     )
 
-    print("\n✓ Created Multi-Portfolio Timeline")
+    print("\n[OK] Created Multi-Portfolio Timeline")
     print(f"  Portfolios compared: {len(portfolios)}")
 
     fig2.write_html("multi_portfolio_timeline.html")
-    print(f"✓ Saved to: multi_portfolio_timeline.html")
+    print(f"[OK] Saved to: multi_portfolio_timeline.html")
 
 
 def example_6_geographic_maps():
@@ -478,7 +478,7 @@ def example_6_geographic_maps():
     )
 
     total_allocation = sum(country_allocations.values())
-    print("✓ Created Geographic Allocation Choropleth Map")
+    print("[OK] Created Geographic Allocation Choropleth Map")
     print(f"  Countries: {len(country_allocations)}")
     print(f"  Total allocation: {total_allocation:.1f}%")
     print(f"\n  Top 5 Countries:")
@@ -488,7 +488,7 @@ def example_6_geographic_maps():
         print(f"    {country}: {allocation:.1f}%")
 
     fig.write_html("geographic_allocation_map.html")
-    print(f"\n✓ Saved to: geographic_allocation_map.html")
+    print(f"\n[OK] Saved to: geographic_allocation_map.html")
 
     # Create regional bubble map
     regional_data = pd.DataFrame({
@@ -503,13 +503,13 @@ def example_6_geographic_maps():
         config=ChartConfig(title="Regional Allocation Bubble Map")
     )
 
-    print("\n✓ Created Regional Bubble Map")
+    print("\n[OK] Created Regional Bubble Map")
     print(f"  Regions: {len(regional_data)}")
     for _, row in regional_data.iterrows():
         print(f"    {row['name']}: {row['allocation']:.1f}%")
 
     fig2.write_html("regional_bubble_map.html")
-    print(f"✓ Saved to: regional_bubble_map.html")
+    print(f"[OK] Saved to: regional_bubble_map.html")
 
 
 def example_7_custom_chart_builder():
@@ -563,13 +563,13 @@ def example_7_custom_chart_builder():
         arrowhead=2
     )
 
-    print("✓ Created Custom Combined Chart")
+    print("[OK] Created Custom Combined Chart")
     print(f"  Traces: 2 line charts")
     print(f"  Annotations: 1")
     print(f"  Data points: {len(dates)} per trace")
 
     fig.write_html("custom_chart_combined.html")
-    print(f"✓ Saved to: custom_chart_combined.html")
+    print(f"[OK] Saved to: custom_chart_combined.html")
 
     # Example 2: Multi-panel dashboard
     builder2 = CustomChartBuilder()
@@ -581,13 +581,13 @@ def example_7_custom_chart_builder():
         subplot_titles=['Returns', 'Allocation', 'Risk', 'Correlation']
     )
 
-    print("\n✓ Created Custom Multi-Panel Dashboard")
+    print("\n[OK] Created Custom Multi-Panel Dashboard")
     print(f"  Layout: 2x2 grid")
     print(f"  Panels: 4")
 
     # Save as HTML
     builder.save_html("custom_dashboard.html")
-    print(f"\n✓ Saved to: custom_dashboard.html")
+    print(f"\n[OK] Saved to: custom_dashboard.html")
 
     print("\nCustom Chart Builder Features:")
     print("  • Flexible trace types (line, bar, scatter, pie, 3D)")
@@ -605,13 +605,13 @@ def demo_visualization_suite():
     suite = VisualizationSuite()
 
     print("Visualization Suite Components:")
-    print("  ✓ 3D Efficient Frontier")
-    print("  ✓ Interactive Correlation Heatmaps")
-    print("  ✓ Animated Historical Replays")
-    print("  ✓ Risk Factor Decomposition")
-    print("  ✓ Portfolio Evolution Timelines")
-    print("  ✓ Geographic Allocation Maps")
-    print("  ✓ Custom Chart Builder")
+    print("  [OK] 3D Efficient Frontier")
+    print("  [OK] Interactive Correlation Heatmaps")
+    print("  [OK] Animated Historical Replays")
+    print("  [OK] Risk Factor Decomposition")
+    print("  [OK] Portfolio Evolution Timelines")
+    print("  [OK] Geographic Allocation Maps")
+    print("  [OK] Custom Chart Builder")
 
     print("\nAll visualizations are:")
     print("  • Interactive (hover, zoom, pan)")
@@ -665,7 +665,7 @@ def main():
         print("=" * 80 + "\n")
 
     except Exception as e:
-        print(f"\n❌ Error running examples: {e}")
+        print(f"\n[ERROR] Error running examples: {e}")
         import traceback
         traceback.print_exc()
 

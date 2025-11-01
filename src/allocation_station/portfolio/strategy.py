@@ -1,7 +1,7 @@
 """Portfolio allocation strategies."""
 
 from abc import ABC, abstractmethod
-from typing import Dict, List, Optional, Any, Tuple
+from typing import Dict, List, Optional, Any, Tuple, Literal
 from datetime import datetime
 from enum import Enum
 import numpy as np
@@ -169,7 +169,7 @@ class StrategicAllocation(AllocationStrategy):
     Maintains a fixed allocation with periodic rebalancing.
     """
 
-    strategy_type: StrategyType = Field(StrategyType.STRATEGIC, const=True)
+    strategy_type: Literal[StrategyType.STRATEGIC] = StrategyType.STRATEGIC
     rebalance_frequency: str = Field("quarterly", description="Rebalancing frequency")
     rebalance_threshold: float = Field(0.05, description="Drift threshold for rebalancing")
 
@@ -209,7 +209,7 @@ class TacticalAllocation(AllocationStrategy):
     Adjusts allocation based on market conditions and signals.
     """
 
-    strategy_type: StrategyType = Field(StrategyType.TACTICAL, const=True)
+    strategy_type: Literal[StrategyType.TACTICAL] = StrategyType.TACTICAL
 
     # Tactical parameters
     momentum_window: int = Field(20, description="Momentum calculation window")
@@ -334,7 +334,7 @@ class RiskParityStrategy(AllocationStrategy):
     Allocates capital such that each asset contributes equally to portfolio risk.
     """
 
-    strategy_type: StrategyType = Field(StrategyType.RISK_PARITY, const=True)
+    strategy_type: Literal[StrategyType.RISK_PARITY] = StrategyType.RISK_PARITY
     risk_measure: str = Field("volatility", description="Risk measure to use")
     leverage_allowed: bool = Field(False, description="Allow leverage in allocation")
     max_leverage: float = Field(1.0, description="Maximum leverage if allowed")

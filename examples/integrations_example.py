@@ -4,12 +4,17 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from allocation_station.integrations import (
-    IBKRClient, TDAClient, PortfolioImporter, AllocationStationAPI,
-    WebhookManager, CloudStorageManager, DatabaseConnector,
-    BrokerType, Order, OrderAction, OrderType
-)
-from datetime import datetime, timedelta
+try:
+    from allocation_station.integrations import (
+        IBKRClient, TDAClient, PortfolioImporter, AllocationStationAPI,
+        WebhookManager, CloudStorageManager, DatabaseConnector,
+        BrokerType, Order, OrderAction, OrderType
+    )
+    from datetime import datetime, timedelta
+    INTEGRATIONS_AVAILABLE = True
+except ImportError as e:
+    INTEGRATIONS_AVAILABLE = False
+    IMPORT_ERROR = str(e)
 
 
 def example_ibkr_integration():
@@ -96,4 +101,14 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if not INTEGRATIONS_AVAILABLE:
+        print("\n" + "=" * 80)
+        print(" Integrations Example - Missing Dependencies")
+        print("=" * 80)
+        print(f"\nError: {IMPORT_ERROR}")
+        print("\nThis example requires optional integration dependencies.")
+        print("\nTo install:")
+        print("  pip install fastapi uvicorn boto3")
+        print("\n" + "=" * 80)
+    else:
+        main()

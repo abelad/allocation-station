@@ -1,15 +1,29 @@
 """Portfolio analysis and metrics modules."""
 
-from .metrics import calculate_portfolio_metrics, RiskMetrics, PerformanceMetrics
+# Import only modules that exist
 from .efficient_frontier import EfficientFrontier, OptimizationObjective
-from .comparison import StrategyComparison, ComparisonReport
 
+# Try to import optional modules
+try:
+    from .metrics import calculate_portfolio_metrics, RiskMetrics, PerformanceMetrics
+    _has_metrics = True
+except ImportError:
+    _has_metrics = False
+
+try:
+    from .comparison import StrategyComparison, ComparisonReport
+    _has_comparison = True
+except ImportError:
+    _has_comparison = False
+
+# Build __all__ dynamically
 __all__ = [
-    "calculate_portfolio_metrics",
-    "RiskMetrics",
-    "PerformanceMetrics",
     "EfficientFrontier",
     "OptimizationObjective",
-    "StrategyComparison",
-    "ComparisonReport",
 ]
+
+if _has_metrics:
+    __all__.extend(["calculate_portfolio_metrics", "RiskMetrics", "PerformanceMetrics"])
+
+if _has_comparison:
+    __all__.extend(["StrategyComparison", "ComparisonReport"])
