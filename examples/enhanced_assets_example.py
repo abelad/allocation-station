@@ -129,14 +129,14 @@ def example_2_reits():
     print(f"   Total Properties: {reit.total_properties}")
 
     print(f"\n2. Financial Metrics:")
-    print(f"   Dividend Yield: {reit.dividend_yield*100:.2f}%")
-    print(f"   FFO per Share: ${reit.ffo_per_share:.2f}")
-    print(f"   AFFO per Share: ${reit.affo_per_share:.2f}")
-    print(f"   Price/FFO: {reit.price_to_ffo:.1f}x")
+    print(f"   Dividend Yield: {(reit.dividend_yield or 0)*100:.2f}%")
+    print(f"   FFO per Share: ${reit.ffo_per_share or 0:.2f}")
+    print(f"   AFFO per Share: ${reit.affo_per_share or 0:.2f}")
+    print(f"   Price/FFO: {reit.price_to_ffo or 0:.1f}x")
 
     print(f"\n3. Operational Metrics:")
-    print(f"   Occupancy Rate: {reit.occupancy_rate*100:.1f}%")
-    print(f"   Debt/Equity: {reit.debt_to_equity:.2f}")
+    print(f"   Occupancy Rate: {(reit.occupancy_rate or 0)*100:.1f}%")
+    print(f"   Debt/Equity: {reit.debt_to_equity or 0:.2f}")
 
     # Calculate REIT-specific metrics
     metrics = reit.calculate_reit_metrics()
@@ -178,16 +178,16 @@ def example_3_crypto():
     print(f"\n1. Bitcoin Details:")
     print(f"   Blockchain: {btc.blockchain}")
     print(f"   Consensus: {btc.consensus_mechanism}")
-    print(f"   Market Cap: ${btc.market_cap/1e9:.1f}B")
-    print(f"   Market Dominance: {btc.market_dominance*100:.1f}%")
+    print(f"   Market Cap: ${(btc.market_cap or 0)/1e9:.1f}B")
+    print(f"   Market Dominance: {(btc.market_dominance or 0)*100:.1f}%")
 
     print(f"\n2. Supply Metrics:")
-    print(f"   Circulating: {btc.circulating_supply/1e6:.2f}M")
-    print(f"   Max Supply: {btc.max_supply/1e6:.0f}M")
-    print(f"   % of Max: {(btc.circulating_supply/btc.max_supply)*100:.1f}%")
+    print(f"   Circulating: {(btc.circulating_supply or 0)/1e6:.2f}M")
+    print(f"   Max Supply: {(btc.max_supply or 0)/1e6:.0f}M")
+    print(f"   % of Max: {((btc.circulating_supply or 0)/(btc.max_supply or 1))*100:.1f}%")
 
     print(f"\n3. Volatility Analysis:")
-    print(f"   30-day Volatility: {btc.volatility_30d*100:.1f}%")
+    print(f"   30-day Volatility: {(btc.volatility_30d or 0)*100:.1f}%")
     print(f"   Volatility Multiplier: {btc.volatility_multiplier}x")
     adjusted_vol = btc.calculate_adjusted_volatility()
     print(f"   Adjusted Volatility: {adjusted_vol*100:.1f}%")
@@ -214,7 +214,7 @@ def example_3_crypto():
 
     print(f"\n5. Ethereum (DeFi Platform):")
     print(f"   Consensus: {eth.consensus_mechanism}")
-    print(f"   Staking APY: {eth.staking_apy*100:.2f}%")
+    print(f"   Staking APY: {(eth.staking_apy or 0)*100:.2f}%")
     print(f"   Volatility Multiplier: {eth.volatility_multiplier}x")
 
 
@@ -247,9 +247,9 @@ def example_4_commodities():
     carry_cost = gold.calculate_carry_cost(risk_free_rate=0.04)
     print(f"\n2. Cost of Carry Analysis:")
     print(f"   Risk-free Rate: 4.0%")
-    print(f"   Storage Costs: {gold.storage_costs*100:.2f}%")
-    print(f"   Convenience Yield: {gold.convenience_yield*100:.2f}%")
-    print(f"   Total Carry Cost: {carry_cost*100:.2f}%")
+    print(f"   Storage Costs: {(gold.storage_costs or 0)*100:.2f}%")
+    print(f"   Convenience Yield: {(gold.convenience_yield or 0)*100:.2f}%")
+    print(f"   Total Carry Cost: {(carry_cost or 0)*100:.2f}%")
 
     # Oil futures contract
     oil_future = FutureContract(
@@ -313,15 +313,15 @@ def example_5_alternatives():
     print(f"   Name: {pe_fund.name}")
     print(f"   Vintage Year: {pe_fund.vintage_year}")
     print(f"   Strategy: {pe_fund.strategy}")
-    print(f"   Sector Focus: {', '.join(pe_fund.sector_focus)}")
+    print(f"   Sector Focus: {', '.join(pe_fund.sector_focus or [])}")
 
     print(f"\n2. Fee Structure:")
-    print(f"   Management Fee: {pe_fund.management_fee*100:.1f}% annually")
-    print(f"   Performance Fee: {pe_fund.performance_fee*100:.0f}% (carried interest)")
-    print(f"   Hurdle Rate: {pe_fund.hurdle_rate*100:.0f}%")
+    print(f"   Management Fee: {(pe_fund.management_fee or 0)*100:.1f}% annually")
+    print(f"   Performance Fee: {(pe_fund.performance_fee or 0)*100:.0f}% (carried interest)")
+    print(f"   Hurdle Rate: {(pe_fund.hurdle_rate or 0)*100:.0f}%")
 
     print(f"\n3. Performance Metrics:")
-    print(f"   IRR: {pe_fund.irr*100:.1f}%")
+    print(f"   IRR: {(pe_fund.irr or 0)*100:.1f}%")
     print(f"   MOIC: {pe_fund.moic:.1f}x")
     print(f"   TVPI: {pe_fund.tvpi:.1f}x")
     print(f"   DPI: {pe_fund.dpi:.1f}x (distributed)")
@@ -369,9 +369,9 @@ def example_6_structured_products():
     print(f"   Issuer: {structured.issuer} ({structured.issuer_credit_rating})")
 
     print(f"\n2. Terms:")
-    print(f"   Principal Protection: {structured.protection_level*100:.0f}%")
-    print(f"   Participation Rate: {structured.participation_rate*100:.0f}%")
-    print(f"   Cap Level: {structured.cap_level*100:.0f}%")
+    print(f"   Principal Protection: {(structured.protection_level or 0)*100:.0f}%")
+    print(f"   Participation Rate: {(structured.participation_rate or 0)*100:.0f}%")
+    print(f"   Cap Level: {(structured.cap_level or 0)*100:.0f}%")
 
     # Calculate payoffs for different scenarios
     print(f"\n3. Payoff Scenarios (at maturity):")
@@ -459,7 +459,8 @@ def example_7_correlation_analysis():
     regime_counts = regimes['regime'].value_counts()
     for regime, count in regime_counts.items():
         pct = (count / len(regimes)) * 100
-        print(f"     {regime.capitalize()}: {pct:.1f}% of the time")
+        regime_str = str(regime).capitalize() if regime is not None else "Unknown"
+        print(f"     {regime_str}: {pct:.1f}% of the time")
 
     # Hierarchical clustering
     print(f"\n5. Asset Clustering (Hierarchical):")
