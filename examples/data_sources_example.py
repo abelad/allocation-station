@@ -10,6 +10,7 @@ This example shows how to:
 """
 
 from datetime import datetime, timedelta, time
+import pandas as pd
 from allocation_station.data import (
     MarketDataProvider,
     AlphaVantageSource,
