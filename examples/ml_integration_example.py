@@ -158,7 +158,7 @@ def example_1_return_prediction():
         # Directional accuracy
         actual = test_data['returns'].values[predictor.lookback_periods:predictor.lookback_periods+len(test_results.predictions)]
         predicted = np.array(test_results.predictions)
-        directional_accuracy = np.mean(np.sign(actual) == np.sign(predicted))
+        directional_accuracy = np.mean(np.sign(np.asarray(actual)) == np.sign(predicted))
         print(f"  Directional Accuracy: {directional_accuracy:.1%}")
 
         results.append({
@@ -403,8 +403,8 @@ def example_5_neural_forecasting():
 
     print(f"\nTime Series Data:")
     print(f"  Length: {len(asset_prices)} days")
-    print(f"  Mean: ${np.mean(asset_prices):.2f}")
-    print(f"  Std: ${np.std(asset_prices):.2f}")
+    print(f"  Mean: ${np.mean(np.asarray(asset_prices)):.2f}")
+    print(f"  Std: ${np.std(np.asarray(asset_prices)):.2f}")
 
     # Create neural forecaster
     forecaster = NeuralForecaster(
@@ -432,8 +432,8 @@ def example_5_neural_forecasting():
     # Train model
     print("\n--- Training Neural Network ---")
     history = forecaster.train(
-        train_data,
-        val_data=test_data,
+        np.asarray(train_data),
+        val_data=np.asarray(test_data),
         seq_length=20,
         epochs=10,
         batch_size=32,
@@ -448,7 +448,7 @@ def example_5_neural_forecasting():
     n_forecast_steps = 10
 
     forecasts = forecaster.forecast(
-        train_data,
+        np.asarray(train_data),
         n_steps=n_forecast_steps,
         seq_length=20,
     )
@@ -464,7 +464,7 @@ def example_5_neural_forecasting():
         print(f"\nForecast MAE: ${forecast_error:.2f}")
 
         # Directional accuracy
-        actual_direction = np.diff(actual) > 0
+        actual_direction = np.diff(np.asarray(actual)) > 0
         forecast_direction = np.diff(forecasts) > 0
         directional_acc = np.mean(actual_direction == forecast_direction)
         print(f"Directional Accuracy: {directional_acc:.1%}")
@@ -544,11 +544,12 @@ def example_6_feature_engineering():
     high_corr_pairs = []
     for i in range(len(corr_matrix.columns)):
         for j in range(i+1, len(corr_matrix.columns)):
-            if abs(corr_matrix.iloc[i, j]) > 0.95:
+            corr_val = float(corr_matrix.iloc[i, j])
+            if abs(corr_val) > 0.95:
                 high_corr_pairs.append((
                     corr_matrix.columns[i],
                     corr_matrix.columns[j],
-                    corr_matrix.iloc[i, j]
+                    corr_val
                 ))
 
     if high_corr_pairs:
@@ -615,8 +616,10 @@ def example_7_model_backtesting():
     # Show performance over time
     print("\nPerformance Stability:")
     print(f"  R² Std Dev: {wf_results['r2'].std():.3f}")
-    print(f"  Best R²: {wf_results['r2'].max():.3f} (Period {wf_results['r2'].idxmax() + 1})")
-    print(f"  Worst R²: {wf_results['r2'].min():.3f} (Period {wf_results['r2'].idxmin() + 1})")
+    best_idx = int(wf_results['r2'].idxmax()) if isinstance(wf_results['r2'].idxmax(), (int, np.integer)) else 0
+    worst_idx = int(wf_results['r2'].idxmin()) if isinstance(wf_results['r2'].idxmin(), (int, np.integer)) else 0
+    print(f"  Best R²: {wf_results['r2'].max():.3f} (Period {best_idx + 1})")
+    print(f"  Worst R²: {wf_results['r2'].min():.3f} (Period {worst_idx + 1})")
 
     # 2. Time Series Cross-Validation
     print("\n--- Time Series Cross-Validation ---")
@@ -654,7 +657,7 @@ def example_7_model_backtesting():
 
     trading_metrics = backtester.calculate_trading_metrics(
         predictions,
-        actual_returns,
+        np.asarray(actual_returns),
         transaction_cost=0.001,
     )
 
@@ -667,7 +670,7 @@ def example_7_model_backtesting():
     print(f"  Avg Return per Trade: {trading_metrics['avg_return_per_trade']:.3%}")
 
     # Compare with buy-and-hold
-    buy_hold_return = np.prod(1 + actual_returns) - 1
+    buy_hold_return = float(np.prod(1 + np.asarray(actual_returns)) - 1)
     print(f"\nBuy-and-Hold Return: {buy_hold_return:.2%}")
     print(f"Strategy Outperformance: {(trading_metrics['total_return'] - buy_hold_return):.2%}")
 
