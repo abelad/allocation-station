@@ -5,13 +5,13 @@ from .efficient_frontier import EfficientFrontier, OptimizationObjective
 
 # Try to import optional modules
 try:
-    from .metrics import calculate_portfolio_metrics, RiskMetrics, PerformanceMetrics
+    from .metrics import calculate_portfolio_metrics, RiskMetrics, PerformanceMetrics  # type: ignore[import-not-found]
     _has_metrics = True
 except ImportError:
     _has_metrics = False
 
 try:
-    from .comparison import StrategyComparison, ComparisonReport
+    from .comparison import StrategyComparison, ComparisonReport  # type: ignore[import-not-found]
     _has_comparison = True
 except ImportError:
     _has_comparison = False
