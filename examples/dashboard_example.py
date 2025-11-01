@@ -25,7 +25,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 try:
-    import streamlit as st
+    import streamlit as st  # type: ignore[import-not-found]
     import pandas as pd
     import numpy as np
     from datetime import datetime, timedelta
@@ -330,10 +330,10 @@ def demo_strategy_builder():
 
         if st.button("Optimize Allocation"):
             constraints = {
-                'stocks': (20, 80),
-                'bonds': (10, 60),
-                'commodities': (0, 20),
-                'real_estate': (0, 20)
+                'stocks': (20.0, 80.0),
+                'bonds': (10.0, 60.0),
+                'commodities': (0.0, 20.0),
+                'real_estate': (0.0, 20.0)
             }
 
             optimized = builder.optimize_allocation(risk_tolerance, constraints)

@@ -55,6 +55,17 @@ docs = [
     "sphinx-rtd-theme>=1.2.0",
     "autodoc>=0.5.0",
 ]
+ui = [
+    "streamlit>=1.28.0",  # Interactive dashboards
+    "dash>=2.14.0",  # Alternative dashboard framework
+    "plotly>=5.14.0",  # Already in main deps but needed for UI
+]
+integrations = [
+    "fastapi>=0.104.0",  # REST API server
+    "uvicorn>=0.24.0",  # ASGI server
+    "boto3>=1.28.0",  # AWS/cloud storage
+    "sqlalchemy>=2.0.0",  # Database connections
+]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
