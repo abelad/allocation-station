@@ -182,7 +182,8 @@ def example_1_brinson_attribution():
     print(f"  Total:              {sum(result.components.values()):.2%}")
 
     print("\nSector-Level Attribution:")
-    print(result.by_sector[['allocation_effect', 'selection_effect', 'interaction_effect', 'total_effect']])
+    if result.by_sector is not None:  # type: ignore[reportOptionalSubscript]
+        print(result.by_sector[['allocation_effect', 'selection_effect', 'interaction_effect', 'total_effect']])
 
     # Multi-period attribution
     print("\n--- Multi-Period Brinson Attribution (12 months) ---")
@@ -196,7 +197,7 @@ def example_1_brinson_attribution():
     )
 
     print("\nPeriod-by-Period Summary:")
-    print(multi_result['summary'][['portfolio_return', 'benchmark_return', 'allocation', 'selection']])
+    print(multi_result['summary'][['portfolio_return', 'benchmark_return', 'allocation', 'selection']])  # type: ignore[index]
 
     linked = multi_result['linked_result']
     print(f"\nLinked Attribution Results:")
@@ -250,11 +251,11 @@ def example_2_factor_attribution():
     print(f"\nR-squared: {results['r_squared']:.2%}")
 
     print("\nReturn Decomposition:")
-    decomp = results['return_decomposition']
-    print(f"  Average Return:       {decomp['average_return']:.2%}")
-    print(f"  Alpha Contribution:   {decomp['alpha']:.2%}")
-    print(f"  Factor Contribution:  {decomp['factor_contribution']:.2%}")
-    print(f"  Residual:             {decomp['residual']:.2%}")
+    decomp = results['return_decomposition']  # type: ignore[index]
+    print(f"  Average Return:       {decomp['average_return']:.2%}")  # type: ignore[index]
+    print(f"  Alpha Contribution:   {decomp['alpha']:.2%}")  # type: ignore[index]
+    print(f"  Factor Contribution:  {decomp['factor_contribution']:.2%}")  # type: ignore[index]
+    print(f"  Residual:             {decomp['residual']:.2%}")  # type: ignore[index]
 
     print("\nAverage Factor Contributions:")
     print(results['factor_contribution_summary'])
@@ -536,9 +537,11 @@ def example_6_return_calculations():
 
     difference = twr_result['time_weighted_return'] - mwr_result['money_weighted_return']
     print(f"\nDifference (TWR - MWR): {difference:.2%}")
-    if difference > 0:
+    # Handle potential Series type
+    diff_value = difference.item() if hasattr(difference, 'item') else difference  # type: ignore[union-attr]
+    if diff_value > 0:  # type: ignore[operator]
         print("  >>> Investor added money at inopportune times (bought high)")
-    elif difference < 0:
+    elif diff_value < 0:  # type: ignore[operator]
         print("  >>> Investor added money at opportune times (bought low)")
 
 
@@ -593,7 +596,7 @@ def example_7_custom_attribution():
     print(f"Drift Impact:   {drift_result['drift_impact']:.2%}")
 
     print("\nDrift Impact by Sector:")
-    print(drift_result['drift_by_asset'].sort_values(ascending=False))
+    print(drift_result['drift_by_asset'].sort_values(ascending=False))  # type: ignore[attr-defined]
 
     # Tactical vs Strategic attribution
     print("\n--- Tactical vs Strategic Attribution ---")
