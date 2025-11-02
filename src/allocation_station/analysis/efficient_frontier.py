@@ -112,7 +112,7 @@ class EfficientFrontier:
         best_sharpe = -np.inf
         best_weights = None
 
-        target_returns = np.linspace(returns.min(), returns.max(), 50)
+        target_returns = np.linspace(float(np.min(returns)), float(np.max(returns)), 50)
 
         for target_return in target_returns:
             prob = cp.Problem(
